@@ -59,7 +59,7 @@ function init() {
 
     function sectionControl() {
       var currentSection = window.location.pathname;
-      currentSection = currentSection.split('/')[1];
+      currentSection = currentSection.split('/').pop();
 
       if(currentSection != '') {
         $('#sidebar a[href="'+currentSection+'"]').addClass('active');
@@ -86,10 +86,10 @@ function init() {
         $.getJSON(completeTumblrCall, function(data) {
           if(data.meta.status == 200) {
             // success
-            console.log('success');
+            console.log('success - ' + completeTumblrCall);
             var posts = data.response.posts;
             $.each(posts, function(){
-              console.log(this);
+              //console.log(this);
               if(this.photos != undefined) {
                 var imageURL = this.photos[0].original_size.url;
                 var postURL = this.post_url;
