@@ -86,6 +86,7 @@ function init() {
         $.getJSON(completeTumblrCall, function(data) {
           if(data.meta.status == 200) {
             // success
+            console.log('success');
             var posts = data.response.posts;
             $.each(posts, function(){
               console.log(this);
