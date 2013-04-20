@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body{
+  width: 100%;
+  height:100%;
+}
+
+body{
+  font-family:'times new roman', serif;
+}
+
+#main-wrap{
+  width:1180px;
+  min-height:1498px;
+  margin:0 auto;
+  position: relative;
+}
+
+#sidebar{
+  font-family:'futura', sans-serif;
+  margin-left:65px;
+  position:fixed;
+  left:0;
+  top:40px;
+}
+
+#sidebar .brand{
+  display:inline-block;
+  background:url(img/alison-lewis-brand.png) -4px top no-repeat;
+  width:150px;
+  height:105px;
+  text-indent:-9999em;
+  margin-bottom:26px;
+}
+
+
+#sidebar li{
+  list-style-type:none;
+  margin-bottom:15px;
+}
+
+#sidebar li a{
+  color:#333;
+  text-decoration: none;
+}
+
+#sidebar .top-level{
+  font-size:19px;
+}
+
+#sidebar .top-level.active{
+  border-bottom: 2px solid #333;
+}
+
+#sidebar .child-nav{
+  margin-bottom:10px;
+}
+
+#sidebar .child-nav a{
+  font-size:13px;
+  display:block;
+  line-height:18px;
+}
+
+#sidebar .child-nav li{
+  margin-bottom:2px;
+}
+
+#content{
+  width:772px;
+  margin-left:316px;
+  margin-top:43px;
+}
+
+#content .title{
+  font-family:'futura', sans-serif;
+  display:block;
+  margin-bottom:15px;
+}
+
+#content .tumblr-photo img{
+  max-width:772px;
+}
