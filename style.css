@@ -75,6 +75,15 @@ body{
   margin-top:43px;
 }
 
+#content a{
+  color:#333;
+  text-decoration:underline;
+}
+
+#content li{
+  list-style-type:none;
+}
+
 #content .title{
   font-family:'futura-pt', sans-serif;
   display:block;
