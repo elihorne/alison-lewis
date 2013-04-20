@@ -44,7 +44,7 @@ function init() {
     ];
 
     navStructure  = '<div id="sidebar">';
-    navStructure += '<a class="brand" href="..">Alison Lewis</a>';
+    navStructure += '<a class="brand" href=".">Alison Lewis</a>';
     navStructure += '<nav class="main">';
     navStructure += '<ul></ul>';
     navStructure += '</nav>';
