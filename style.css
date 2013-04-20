@@ -20,7 +20,7 @@ body{
 }
 
 #sidebar{
-  font-family:'futura', sans-serif;
+  font-family:'futura-pt', sans-serif;
   margin-left:65px;
   position:fixed;
   left:0;
@@ -76,7 +76,7 @@ body{
 }
 
 #content .title{
-  font-family:'futura', sans-serif;
+  font-family:'futura-pt', sans-serif;
   display:block;
   margin-bottom:15px;
 }
