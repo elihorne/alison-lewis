@@ -97,7 +97,7 @@ function init() {
               }
             });
           } else {
-            // error
+            console.log('error');
           }
         });
       };
