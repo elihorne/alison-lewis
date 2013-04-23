@@ -54,24 +54,47 @@ function init() {
     $(navStructure).insertBefore('#content');
 
     $.each(navData, function(){
-      $('#sidebar nav ul').append('<li><a href="'+this.slug+'.html" class="nav-'+this.slug+' top-level">'+this.name+'</a></li>')
+      if(this.slug == 'email-me') {
+        this.hrefValue = 'mailto:alisonlewis7@gmail.com';
+      } else {
+        this.hrefValue = this.slug + '.html';
+      }
+      $('#sidebar nav ul').append('<li><a href="'+this.hrefValue+'" class="nav-'+this.slug+' top-level">'+this.name+'</a></li>')
     });
 
     function sectionControl() {
       var currentSection = window.location.pathname;
       currentSection = currentSection.split('/').pop();
 
+      function buildSubNav(targetParent) {
+        var subNavContent = '';
+        $('#content span[data-type="nav-item"]').each(function(){
+          var linkText = $(this).data('title');
+          if($(this).data('href') != undefined) {
+            var linkAnchor = '#' + $(this).data('href');
+          } else {
+            var linkAnchor = '';
+          }
+
+          subNavContent += '<li><a href="'+linkAnchor+'">'+linkText+'</a></li>';
+        });
+        $('<ul class="child-nav">'+subNavContent+'</ul>').insertAfter(targetParent);
+      }
+
       if(currentSection != '') {
         $('#sidebar a[href="'+currentSection+'"]').addClass('active');
       }
 
       if(currentSection == 'graphic-design.html') {
-        $('<ul class="child-nav"></ul>').insertAfter('.nav-graphic-design');
-        $('#content .title').each(function(){
-          var linkText = $(this).text();
-          var linkAnchor = $(this).parent().attr('id');
-          $('#sidebar .child-nav').append('<li><a href="#'+linkAnchor+'">'+linkText+'</a></li>');
-        });
+        buildSubNav('.nav-graphic-design');
+      };
+
+      if(currentSection == 'styling.html') {
+        buildSubNav('.nav-styling');
+      };
+
+      if(currentSection == 'clothing-design.html') {
+        buildSubNav('.nav-clothing-design');
       };
 
       if(currentSection == 'blog.html') {
