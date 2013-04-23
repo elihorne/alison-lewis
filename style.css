@@ -73,13 +73,14 @@ body{
   width:800px;
   margin-left:260px;
   margin-top:43px;
+  padding-bottom:30px;
 }
 
 #content .caption{
   font-size:16px;
   margin-top:10px;
   margin-bottom:30px;
-  display:inline-block;
+  display:block;
 }
 
 #content a{
@@ -95,12 +96,40 @@ body{
   visibility: hidden;
 }
 
-#content .title{
+#content .main-title{
   font-family:'futura-pt', sans-serif;
   display:block;
   margin-bottom:15px;
+  font-size:18px;
+}
+
+#content p{
+  margin:20px 0;
+  font-size:16px;
+  line-height:24px;
+}
+
+#content .block{
+  overflow:hidden;
+  clear:both;
+  margin-bottom:30px;
+}
+
+#content .col{
+  float:left;
+  min-width:30%;
+  line-height:35px;
 }
 
 #content .tumblr-photo img{
   max-width:772px;
+}
+
+#content .grid li{
+  background:#ddd;
+  min-width:262px;
+  height:192px;
+  float:left;
+  margin-right:4px;
+  margin-bottom:4px;
 }

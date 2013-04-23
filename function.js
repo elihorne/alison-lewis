@@ -119,6 +119,7 @@ function init() {
                 $('#content').append('<a class="tumblr-photo" href="'+postURL+'"><img src="'+imageURL+'"/></a>');
               }
             });
+            $('#content').append('<a class="caption" href="http://alibobi.tumblr.com">Follow me on Tumblr</a>');
           } else {
             console.log('error');
           }
