@@ -1,14 +1,53 @@
 function init() {
-  // hello world
 
   // sidebar positioning utility
   function positionSidebar() {
+    var windowScrollTop = $(window).scrollTop();
+    var windowScrollLeft = $(window).scrollLeft();
     var contentOffset = $('#content').offset();
     var contentMarginLeft = $('#content').css('margin-left').replace(/[^-\d\.]/g, '');
-    $('#sidebar').css({
-      'left' : contentOffset.left - contentMarginLeft
-    });
+
+    if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+      if(windowScrollTop > 0 && windowScrollLeft == 0) {
+        // if the window has been scrolled vertically and is left aligned, make it fixed and track
+        $('#sidebar').css({
+          'position' : 'fixed',
+          'top' : '43px',
+          'left' : contentOffset.left - contentMarginLeft
+        });
+      }
+
+      if(windowScrollTop > 0 && windowScrollLeft > 0 && $(window).outerWidth() < $('#main-wrap').outerWidth()) {
+        // if window is small (horizontal scrollbars)
+        $('#sidebar').css({
+          'position' : 'fixed',
+          'top' : '43px',
+          'left' : -$(window).scrollLeft()
+        });
+      }
+
+      if(windowScrollTop == 0) {
+        // otherwise reset it to absolute and don't track
+        $('#sidebar').css({
+          'position' : 'absolute',
+          'top' : '0',
+          'left' : '0'
+        });
+      }
+
+      if(windowScrollLeft > 0 && $('#sidebar').css('position') == 'fixed') {
+        // if they scroll the window left while scrolled vertically, track it (and the window doesn't have horizontal scrollbars)
+        $('#sidebar').css({
+          'position' : 'fixed',
+          'left' : $('#sidebar').css('left') - $(window).scrollLeft()
+        });
+      }
+    }
   }
+
+  $(window).scroll(function() {
+    positionSidebar();
+  });
 
   // move the sidebar whenever the window is resized
   $(window).resize(function(){
@@ -43,6 +82,7 @@ function init() {
       },
     ];
 
+    // todo: switch home link to be relative
     navStructure  = '<div id="sidebar">';
     navStructure += '<a class="brand" href="http://elihorne.com/alison-lewis/">Alison Lewis</a>';
     navStructure += '<nav class="main">';
@@ -109,10 +149,8 @@ function init() {
         $.getJSON(completeTumblrCall, function(data) {
           if(data.meta.status == 200) {
             // success
-            console.log('success - ' + completeTumblrCall);
             var posts = data.response.posts;
             $.each(posts, function(){
-              //console.log(this);
               if(this.photos != undefined) {
                 var imageURL = this.photos[0].original_size.url;
                 var postURL = this.post_url;
@@ -121,7 +159,7 @@ function init() {
             });
             $('#content').append('<a class="caption" href="http://alibobi.tumblr.com">Follow me on Tumblr</a>');
           } else {
-            console.log('error');
+            console.log('Tumblr fetching error.');
           }
         });
       };
@@ -131,8 +169,58 @@ function init() {
     sectionControl();
   }
 
+  function lightboxControl() {
+    function closeModal() {
+      $('.smokescreen, .modal').remove();
+    };
 
+    $('.lightbox').on('click', function(event){
+      event.preventDefault();
+      $('#main-wrap').append('<div class="smokescreen"></div><div class="modal"></div>');
+      var fullSizeImage = $(this).find('img').data('full-image');
+      if(fullSizeImage != undefined) {
+        $('.modal').append('<img src="'+fullSizeImage+'"/>');
+        $('.modal img').load(function(){
+          var modalOriginalImageWidth = this.width;
+          var modalOriginalImageHeight = this.height;
+
+          if(modalOriginalImageHeight > ($(window).outerHeight() - 60)) {
+            modalDisplayImageHeight = $(window).outerHeight() - 60;
+            modalDisplayImageWidth = modalOriginalImageWidth / modalOriginalImageHeight * modalDisplayImageHeight;
+          } else {
+            modalDisplayImageHeight = modalOriginalImageHeight;
+            modalDisplayImageWidth = modalOriginalImageWidth;
+          }
+
+          $('.modal img').css({
+            'height' : modalDisplayImageHeight
+          });
+
+          $('.modal').css({
+            'margin-left' : -modalDisplayImageWidth/2,
+            'margin-top' : -modalDisplayImageHeight/2,
+            'display' : 'block'
+          });
+        });
+
+        $('.smokescreen').on('click',function(){
+          closeModal();
+        });
+
+        $('body').keydown(function(event) {
+          if (event.which == 27) {
+             event.preventDefault();
+             closeModal();
+           }
+        });
+      }
+
+    });
+  }
 
   // add links to the nav for graphic design
   buildNav();
+
+  // listen for lightbox
+  lightboxControl();
 }
