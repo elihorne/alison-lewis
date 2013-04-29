@@ -20,4 +20,12 @@ Spans with data attribute "data-nav-item" will be added to the navigation in the
     Example: <p id="graphic-pink">...</p>
     <span data-type="nav-item" data-title="pink" data-href="graphic-pink">pink</span>
 
+You can hide this text from the page (but still have it in the nav) by giving it a class of "hidden"
 
+    <span class="hidden" data-type="nav-item" data-title="pink" data-href="graphic-pink">pink</span>
+
+Recommended tools
+-----------------
+* Text editor like [Text Wrangler](http://www.barebones.com/products/textwrangler/) (free) or [Sublime Text](http://www.sublimetext.com/)
+* FTP client like [Transmit](http://panic.com/transmit/)
+* Local environment like [Anvil for Mac](http://anvilformac.com/)
