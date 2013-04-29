@@ -7,8 +7,8 @@ function init() {
     var contentOffset = $('#content').offset();
     var contentMarginLeft = $('#content').css('margin-left').replace(/[^-\d\.]/g, '');
 
-    if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-      if(windowScrollTop > 0 && windowScrollLeft == 0) {
+    if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+      if (windowScrollTop > 0 && windowScrollLeft == 0) {
         // if the window has been scrolled vertically and is left aligned, make it fixed and track
         $('#sidebar').css({
           'position' : 'fixed',
@@ -17,7 +17,7 @@ function init() {
         });
       }
 
-      if(windowScrollTop > 0 && windowScrollLeft > 0 && $(window).outerWidth() < $('#main-wrap').outerWidth()) {
+      if (windowScrollTop > 0 && windowScrollLeft > 0 && $(window).outerWidth() < $('#main-wrap').outerWidth()) {
         // if window is small (horizontal scrollbars)
         $('#sidebar').css({
           'position' : 'fixed',
@@ -26,7 +26,7 @@ function init() {
         });
       }
 
-      if(windowScrollTop == 0) {
+      if (windowScrollTop == 0) {
         // otherwise reset it to absolute and don't track
         $('#sidebar').css({
           'position' : 'absolute',
@@ -35,7 +35,7 @@ function init() {
         });
       }
 
-      if(windowScrollLeft > 0 && $('#sidebar').css('position') == 'fixed') {
+      if (windowScrollLeft > 0 && $('#sidebar').css('position') == 'fixed') {
         // if they scroll the window left while scrolled vertically, track it (and the window doesn't have horizontal scrollbars)
         $('#sidebar').css({
           'position' : 'fixed',
@@ -79,12 +79,11 @@ function init() {
       {
         'name' : '[email me]',
         'slug' : 'email-me'
-      },
+      }
     ];
 
-    // todo: switch home link to be relative
     navStructure  = '<div id="sidebar">';
-    navStructure += '<a class="brand" href="http://elihorne.com/alison-lewis/">Alison Lewis</a>';
+    navStructure += '<a class="brand" href="/">Alison Lewis</a>';
     navStructure += '<nav class="main">';
     navStructure += '<ul></ul>';
     navStructure += '</nav>';
@@ -94,7 +93,7 @@ function init() {
     $(navStructure).insertBefore('#content');
 
     $.each(navData, function(){
-      if(this.slug == 'email-me') {
+      if (this.slug == 'email-me') {
         this.hrefValue = 'mailto:alisonlewis7@gmail.com';
       } else {
         this.hrefValue = this.slug + '.html';
@@ -110,34 +109,33 @@ function init() {
         var subNavContent = '';
         $('#content span[data-type="nav-item"]').each(function(){
           var linkText = $(this).data('title');
-          if($(this).data('href') != undefined) {
+          if ($(this).data('href') != undefined) {
             var linkAnchor = '#' + $(this).data('href');
           } else {
             var linkAnchor = '';
           }
-
           subNavContent += '<li><a href="'+linkAnchor+'">'+linkText+'</a></li>';
         });
         $('<ul class="child-nav">'+subNavContent+'</ul>').insertAfter(targetParent);
       }
 
-      if(currentSection != '') {
+      if (currentSection != '') {
         $('#sidebar a[href="'+currentSection+'"]').addClass('active');
       }
 
-      if(currentSection == 'graphic-design.html') {
+      if (currentSection == 'graphic-design.html') {
         buildSubNav('.nav-graphic-design');
       };
 
-      if(currentSection == 'styling.html') {
+      if (currentSection == 'styling.html') {
         buildSubNav('.nav-styling');
       };
 
-      if(currentSection == 'clothing-design.html') {
+      if (currentSection == 'clothing-design.html') {
         buildSubNav('.nav-clothing-design');
       };
 
-      if(currentSection == 'blog.html') {
+      if (currentSection == 'blog.html') {
         var tumblrAPI = 'http://api.tumblr.com/v2/blog/';
         var alisonTumblr = 'alibobi.tumblr.com';
         var type = '/posts';
@@ -147,11 +145,11 @@ function init() {
 
         // http://api.tumblr.com/v2/blog/alibobi.tumblr.com/
         $.getJSON(completeTumblrCall, function(data) {
-          if(data.meta.status == 200) {
+          if (data.meta.status == 200) {
             // success
             var posts = data.response.posts;
             $.each(posts, function(){
-              if(this.photos != undefined) {
+              if (this.photos != undefined) {
                 var imageURL = this.photos[0].original_size.url;
                 var postURL = this.post_url;
                 $('#content').append('<a class="tumblr-photo" href="'+postURL+'"><img src="'+imageURL+'"/></a>');
@@ -167,6 +165,7 @@ function init() {
     // position the sidebar on load
     positionSidebar();
     sectionControl();
+    externalLinkHandler();
   }
 
   function lightboxControl() {
@@ -178,13 +177,13 @@ function init() {
       event.preventDefault();
       $('#main-wrap').append('<div class="smokescreen"></div><div class="modal"></div>');
       var fullSizeImage = $(this).find('img').data('full-image');
-      if(fullSizeImage != undefined) {
+      if (fullSizeImage != undefined) {
         $('.modal').append('<img src="'+fullSizeImage+'"/>');
         $('.modal img').load(function(){
           var modalOriginalImageWidth = this.width;
           var modalOriginalImageHeight = this.height;
 
-          if(modalOriginalImageHeight > ($(window).outerHeight() - 60)) {
+          if (modalOriginalImageHeight > ($(window).outerHeight() - 60)) {
             modalDisplayImageHeight = $(window).outerHeight() - 60;
             modalDisplayImageWidth = modalOriginalImageWidth / modalOriginalImageHeight * modalDisplayImageHeight;
           } else {
@@ -218,8 +217,14 @@ function init() {
     });
   }
 
+  function externalLinkHandler() {
+    $("a[href^='http://']").attr("target","_blank");
+    $("a[href^='mailto:']").attr("target","_blank");
+  }
+
   // add links to the nav for graphic design
   buildNav();
+  externalLinkHandler();
 
   // listen for lightbox
   lightboxControl();

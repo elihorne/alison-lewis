@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Alison Lewis NYC</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="function.js"></script>
+    <script src="//use.typekit.net/wfl3sdt.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+  </head>
+  <body>
+    <div id="main-wrap">
+      <div id="content">
+
+    <!-- lightbox -->
+    <!-- anything with class "lightbox" will open the modal and look for
+         an image inside the link that has a data attribute called "data-full-image" -->
+        <a class="lightbox" href="#">
+          <img src="/path/to/thumbnail.png" data-full-image="/path/to/full-size-image.png"/>
+        </a>
+
+    <!-- navigation items-->
+    <!-- spans with data attribute "data-nav-item" will be added to the navigation in
+        the order they appear in the HTML. The text for the link is stored in "data-title"
+        and the link value is stored in "data-href". This link value should match an image
+        or paragraph content that has the same value as an id (<p id="graphic-pink">...</p>) -->
+        <span data-type="nav-item" data-title="pink" data-href="graphic-pink">pink</span>
+
+    <!-- you can hide this text from the page (but still have it in the nav) by giving it
+         a class of "hidden" - <span class="hidden" data-type="..." -->
+        <span class="hidden" data-type="nav-item" data-title="pink" data-href="graphic-pink">pink</span>
+
+      </div>
+    </div> <!-- /main-wrap -->
+
+    <script>
+      init();
+    </script>
+  </body>
+</html>
